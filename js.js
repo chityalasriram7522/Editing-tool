@@ -93,6 +93,7 @@ const inputlabel=document.querySelector("#input-label")
 const canvasCtx= inputimage.getContext("2d")
 const resetbtn=document.querySelector("#reset-btn")
 const downloadbtn=document.querySelector("#Download-btn")
+const presetbtn=document.querySelector(".preset")
 
 let image=null;
 
@@ -196,4 +197,179 @@ downloadbtn.addEventListener("click",()=>{
     link.download="edited.png"
     link.href=inputimage.toDataURL()
     link.click()
+})
+
+const presets={
+   drama: {
+        brightness: 90,
+        contrast: 150,
+        saturate: 60,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 10,
+        sepia: 0,
+        opacity: 100,
+        invert: 0
+    },
+    vintage: {
+        brightness: 105,
+        contrast: 95,
+        saturate: 110,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 40,
+        opacity: 100,
+        invert: 0
+    },
+    oldschool: {
+        brightness: 100,
+        contrast: 90,
+        saturate: 80,
+        "hue-rotate": 0,
+        blur: 1,
+        grayscale: 15,
+        sepia: 25,
+        opacity: 100,
+        invert: 0
+    },
+     warmsunset: {
+        brightness: 110,
+        contrast: 110,
+        saturate: 150,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 30,
+        opacity: 100,
+        invert: 0
+    },
+    softglow: {
+        brightness: 120,
+        contrast: 90,
+        saturate: 110,
+        "hue-rotate": 0,
+        blur: 2,
+        grayscale: 0,
+        sepia: 5,
+        opacity: 95,
+        invert: 0
+    },
+    noir: {
+        brightness: 80,
+        contrast: 170,
+        saturate: 0,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 100,
+        sepia: 0,
+        opacity: 100,
+        invert: 0
+    },
+    faded: {
+        brightness: 110,
+        contrast: 80,
+        saturate: 85,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 10,
+        opacity: 90,
+        invert: 0
+    },
+    bleach_bypass: { // High contrast, low saturation (Saving Private Ryan style)
+        brightness: 110,
+        contrast: 150,
+        saturate: 60,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 20,
+        sepia: 0,
+        opacity: 100,
+        invert: 0
+    },
+    technicolor: { // 1950s vibrant film style
+        brightness: 105,
+        contrast: 125,
+        saturate: 180,
+        "hue-rotate": 10,
+        blur: 0,
+        grayscale: 0,
+        sepia: 5,
+        opacity: 100,
+        invert: 0
+    },
+    western: { // Dusty, warm, and gritty
+        brightness: 95,
+        contrast: 110,
+        saturate: 90,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 45,
+        opacity: 100,
+        invert: 0
+    },
+     dream_sequence: { // Overexposed and soft
+        brightness: 130,
+        contrast: 80,
+        saturate: 110,
+        "hue-rotate": 0,
+        blur: 3,
+        grayscale: 0,
+        sepia: 10,
+        opacity: 90,
+        invert: 0
+    },
+    noir_cinema: { // Deep shadows, sharp highlights
+        brightness: 85,
+        contrast: 180,
+        saturate: 0,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 100,
+        sepia: 5,
+        opacity: 100,
+        invert: 0
+    },
+    vintage_indie: { // Muted, warm, and nostalgic
+        brightness: 105,
+        contrast: 90,
+        saturate: 85,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 30,
+        opacity: 95,
+        invert: 0
+    },
+    golden_age: { // Rich, warm, royal feel
+        brightness: 100,
+        contrast: 110,
+        saturate: 140,
+        "hue-rotate": 0,
+        blur: 0,
+        grayscale: 0,
+        sepia: 25,
+        opacity: 100,
+        invert: 0
+    },
+    
+}
+Object.keys(presets).forEach(presetname =>{
+    const presetbutton=document.createElement("button")
+    presetbutton.classList.add("btn")
+    presetbutton.innerHTML=presetname
+    presetbtn.appendChild(presetbutton)
+
+    presetbutton.addEventListener("click",()=>{
+        const pre=presets[presetname]
+
+        Object.keys(pre).forEach(filtername =>{
+            filters[filtername].value=pre[filtername]
+        })
+        applyfilter()
+        filterbox.innerHTML=""
+        createfilter()
+    })
 })
